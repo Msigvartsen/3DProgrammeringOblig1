@@ -12,27 +12,23 @@ int main() {
     c = b.toVec3d();
     c.printVector();
     Matrix4x4 mat;
-    mat.printMatrix();
     mat.setToIdentity();
-    mat.printMatrix();
-
     mat*2;
+
+
+    mat.printMatrix();
+    std::cout << "\n\n\n";
+    mat = mat.scale(3,1,2);
     mat.printMatrix();
 
-    std::cout << "\n\n\n";
 
-    b.printVector();
-    b = mat * b;
-    b.printVector();
 
-    std::cout << "\nMATRIX\n\n";
-    Matrix4x4 mat2;
-    mat2.setToIdentity();
-    mat2*2;
-    mat2.printMatrix();
+    Matrix4x4 matrise;
 
-    Matrix4x4 mat3 = mat*mat2;
-    mat3.printMatrix();
+    Vector3d x(0,1,0);
+    matrise.rotate(90.f, x);
+
+
 
     return 0;
 }
