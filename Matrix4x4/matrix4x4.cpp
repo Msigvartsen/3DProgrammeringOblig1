@@ -93,3 +93,33 @@ Vector4d Matrix4x4::operator*(const Vector4d &v) const
     }
     return vec;
 }
+
+Matrix4x4 Matrix4x4::operator*(const Matrix4x4 &m) const
+{
+    Matrix4x4 tempMatrix;
+    for(unsigned int i{0}; i < matrix.size(); i++)
+    {
+        for(unsigned int j{0}; j < matrix.size(); j++)
+        {
+            for(unsigned int k{0}; k < matrix.size(); k++)
+            {
+                tempMatrix.matrix[i][j] += matrix[k][i] * m.matrix[j][k];
+            }
+        }
+    }
+
+    return tempMatrix;
+}
+
+void Matrix4x4::scale(float x, float y, float z)
+{
+
+}
+
+
+
+
+
+
+
+

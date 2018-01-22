@@ -24,5 +24,15 @@ int main() {
     b.printVector();
     b = mat * b;
     b.printVector();
+
+    std::cout << "\nMATRIX\n\n";
+    Matrix4x4 mat2;
+    mat2.setToIdentity();
+    mat2*2;
+    mat2.printMatrix();
+
+    Matrix4x4 mat3 = mat*mat2;
+    mat3.printMatrix();
+
     return 0;
 }

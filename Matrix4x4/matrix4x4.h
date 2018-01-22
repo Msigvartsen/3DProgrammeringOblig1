@@ -13,6 +13,7 @@ public:
     void printMatrix() const;
     void operator* (float c);
     Vector4d operator* (const Vector4d &v) const;
+    Matrix4x4 operator* (const Matrix4x4 &m) const;
 private:
     std::array<std::array<float, 4>, 4> matrix;
 };
