@@ -121,7 +121,7 @@ Matrix4x4 Matrix4x4::scale(float x, float y, float z)
     return tempMatrix;
 }
 
-Matrix4x4 Matrix4x4::rotate(double rotation, Vector3d &dir)
+Matrix4x4 Matrix4x4::rotate(double rotation,  const Vector3d &dir)
 {
     double pi = 3.14159265;
     Matrix4x4 rotationMatrix;

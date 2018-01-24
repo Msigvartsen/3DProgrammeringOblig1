@@ -25,8 +25,11 @@ int main() {
 
     Matrix4x4 matrise;
 
-    Vector3d x(0,1,0);
-    matrise.rotate(90.f, x);
+    Vector3d x;
+    x = Vector3d::getXVector();
+    x.printVector();
+
+    matrise.rotate(45, Vector3d::getYVector());
 
 
 

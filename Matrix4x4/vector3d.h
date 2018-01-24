@@ -7,19 +7,24 @@ class Vector3d
 {
 public:
     Vector3d(float a=0, float b=0, float c = 0);
-    const Vector3d &operator =(const Vector3d& v);
-    Vector3d operator +(const Vector3d& v) const;
-    Vector3d operator -(const Vector3d& v) const;
-    float operator * (const Vector3d& v) const;
-    Vector3d operator ^ (const Vector3d& v) const;
+    const Vector3d& operator= (const Vector3d& v);
+    Vector3d operator+ (const Vector3d& v) const;
+    Vector3d operator- (const Vector3d& v) const;
+    float operator* (const Vector3d& v) const;
+    Vector3d operator^ (const Vector3d& v) const;
     float length() const;
     void normalize();
     Vector3d operator *(float c) const;
     void printVector();
 
-    float getX() {return x;}
-    float getY() {return y;}
-    float getZ() {return z;}
+    float getX() const {return x;}
+    float getY() const {return y;}
+    float getZ() const {return z;}
+
+    //Get directional vectors
+    static Vector3d getXVector() {return Vector3d(1,0,0);}
+    static Vector3d getYVector() {return Vector3d(0,1,0);}
+    static Vector3d getZVector() {return Vector3d(0,0,1);}
 
 private:
     float x, y, z;

@@ -5,22 +5,22 @@ Vector3d::Vector3d(float a, float b, float c): x(a), y(b), z(c)
 {
 }
 
-const Vector3d &Vector3d::operator =(const Vector3d &v)
+const Vector3d &Vector3d::operator= (const Vector3d &v)
 {
-    return {x = v.x, y = v.y, z = v.z};
+    return Vector3d(x = v.x, y = v.y, z = v.z);
 }
 
-Vector3d Vector3d::operator +(const Vector3d &v) const
+Vector3d Vector3d::operator+ (const Vector3d &v) const
 {
     return Vector3d(x + v.x, y + v.y, z + v.z);
 }
 
-Vector3d Vector3d::operator -(const Vector3d &v) const
+Vector3d Vector3d::operator- (const Vector3d &v) const
 {
     return Vector3d(x - v.x, y - v.y, z - v.z);
 }
 
-float Vector3d::operator *(const Vector3d &v) const
+float Vector3d::operator* (const Vector3d &v) const
 {
     //Dot product
     return (x * v.x + y * v.y + z * v.z);
@@ -28,7 +28,7 @@ float Vector3d::operator *(const Vector3d &v) const
 
 Vector3d Vector3d::operator ^(const Vector3d &v) const
 {
-    //kryssprodukt
+    //CrossProduct
     return {y*v.z - z*v.y, z*v.x - x * v.z, x * v.y - y * v.x};
 }
 
@@ -55,3 +55,4 @@ void Vector3d::printVector()
 {
     std::cout << "(" << x << ", " << y << ", " << z << ")\n";
 }
+
