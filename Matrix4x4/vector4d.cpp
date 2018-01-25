@@ -34,6 +34,9 @@ float Vector4d::operator[](int index) const
     case 2:
         return z;
         break;
+    case 3:
+        return w;
+        break;
     default:
         break;
     }

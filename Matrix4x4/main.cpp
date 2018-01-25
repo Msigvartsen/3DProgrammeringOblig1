@@ -5,16 +5,17 @@
 
 
 int main() {
-    Vector3d a(1.4,2.1,3.2);
-    Vector3d b(1,1,1);
-    Vector4d k(a,1);
-    Matrix4x4 m;
-    m.setToIdentity();
-    m*2;
-    Vector4d c(b,1);
-    c.printVector();
-    c = m*a;
-    c.printVector();
+   Vector3d a(1,1,1);
+   Vector3d x(0,0,0);
+   Vector4d b(a,1);
+   b.printVector();
+   Matrix4x4 matrix;
+   matrix.setToIdentity();
+   matrix*2;
+   matrix.printMatrix();
+   Vector4d c(x,1);
+   c = matrix*b;
+   c.printVector();
 //    Vector4d b(a,0);
 //    b.printVector();
 //    Vector3d c(0,0,0);
