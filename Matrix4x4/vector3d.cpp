@@ -32,6 +32,7 @@ Vector3d Vector3d::operator ^(const Vector3d &v) const
     return {y*v.z - z*v.y, z*v.x - x * v.z, x * v.y - y * v.x};
 }
 
+
 float Vector3d::length() const
 {
     return (std::sqrt(std::pow(x,2) + std::pow(y,2) + std::pow(z,2)));

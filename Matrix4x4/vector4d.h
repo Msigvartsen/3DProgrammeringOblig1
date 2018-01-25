@@ -9,6 +9,7 @@ public:
     Vector4d();
     Vector4d(Vector3d &v, float a = 0);
     Vector3d toVec3d();
+    float operator[] (int index) const;
     void setX(float x) {this->x = x;}
     void setY(float y) {this->y = y;}
     void setZ(float z) {this->z = z;}

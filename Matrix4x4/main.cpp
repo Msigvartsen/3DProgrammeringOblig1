@@ -6,30 +6,38 @@
 
 int main() {
     Vector3d a(1.4,2.1,3.2);
-    Vector4d b(a,0);
-    b.printVector();
-    Vector3d c(0,0,0);
-    c = b.toVec3d();
+    Vector3d b(1,1,1);
+    Vector4d k(a,1);
+    Matrix4x4 m;
+    m.setToIdentity();
+    m*2;
+    Vector4d c(b,1);
     c.printVector();
-    Matrix4x4 mat;
-    mat.setToIdentity();
-    mat*2;
+    c = m*a;
+    c.printVector();
+//    Vector4d b(a,0);
+//    b.printVector();
+//    Vector3d c(0,0,0);
+//    c = b.toVec3d();
+//    c.printVector();
+//    Matrix4x4 mat;
+//    mat.setToIdentity();
+//    mat*2;
+
+//    mat.printMatrix();
+//    std::cout << "\n\n\n";
+//    mat = mat.scale(3,1,2);
+//    mat.printMatrix();
 
 
-    mat.printMatrix();
-    std::cout << "\n\n\n";
-    mat = mat.scale(3,1,2);
-    mat.printMatrix();
 
+//    Matrix4x4 matrise;
 
+//    Vector3d x;
+//    x = Vector3d::getXVector();
+//    x.printVector();
 
-    Matrix4x4 matrise;
-
-    Vector3d x;
-    x = Vector3d::getXVector();
-    x.printVector();
-
-    matrise.rotate(45, Vector3d::getYVector());
+//    matrise.rotate(45, Vector3d::getYVector());
 
 
 

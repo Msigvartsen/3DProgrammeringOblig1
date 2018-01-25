@@ -8,6 +8,7 @@ class Vector3d
 public:
     Vector3d(float a=0, float b=0, float c = 0);
     const Vector3d& operator= (const Vector3d& v);
+
     Vector3d operator+ (const Vector3d& v) const;
     Vector3d operator- (const Vector3d& v) const;
     float operator* (const Vector3d& v) const;

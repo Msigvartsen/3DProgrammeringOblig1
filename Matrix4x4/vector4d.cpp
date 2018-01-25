@@ -22,6 +22,24 @@ Vector3d Vector4d::toVec3d()
     return {x, y, z};
 }
 
+float Vector4d::operator[](int index) const
+{
+    switch (index) {
+    case 0:
+        return x;
+        break;
+    case 1:
+        return y;
+        break;
+    case 2:
+        return z;
+        break;
+    default:
+        break;
+    }
+}
+
+
 void Vector4d::printVector()
 {
     std::cout << "(" << x << ", " << y << ", " << z << ", " << w << ")\n";
