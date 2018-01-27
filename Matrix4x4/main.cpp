@@ -16,6 +16,9 @@ int main() {
    Vector4d c(x,1);
    c = matrix*b;
    c.printVector();
+   matrix.rotate(45, Vector3d::getXVector());
+
+   matrix.rotate(32,Vector3d::getYVector());
 //    Vector4d b(a,0);
 //    b.printVector();
 //    Vector3d c(0,0,0);

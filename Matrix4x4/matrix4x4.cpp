@@ -1,6 +1,6 @@
 #include "matrix4x4.h"
 #include <iostream>
-
+#include <limits>
 Matrix4x4::Matrix4x4()
 {
     for(unsigned int i{0}; i < matrix.size(); i++)
@@ -109,31 +109,38 @@ Matrix4x4 Matrix4x4::rotate(double rotation,  const Vector3d &dir)
     Matrix4x4 rotationMatrix;
     rotationMatrix.setToIdentity();
     //fiks avrundinger og nye variabler for cos/sin
+    float cosValue = cos(rotation * (pi / 180));
+    float sinValue = sin(rotation * (pi / 180));
+
+    if(cosValue <= std::numeric_limits<float>::epsilon())
+    {
+        cosValue = 0;
+    }
     if(dir.getX() == 1)
     {
-        rotationMatrix.matrix[1][1] = cos(rotation * (pi / 180));
-        rotationMatrix.matrix[1][2] = -sin(rotation * (pi / 180));
-        rotationMatrix.matrix[2][1] = sin(rotation * (pi / 180));
-        rotationMatrix.matrix[2][2] = cos(rotation * (pi / 180));
+        rotationMatrix.matrix[1][1] = cosValue;
+        rotationMatrix.matrix[1][2] = -sinValue;
+        rotationMatrix.matrix[2][1] = sinValue;
+        rotationMatrix.matrix[2][2] = cosValue;
         std::cout << "Rotation matrix x:\n";
         rotationMatrix.printMatrix();
 
     }
     else if(dir.getY() == 1)
     {
-        rotationMatrix.matrix[0][0] = cos(rotation * (pi / 180));
-        rotationMatrix.matrix[0][2] = sin(rotation * (pi / 180));
-        rotationMatrix.matrix[2][0] = -sin(rotation * (pi / 180));
-        rotationMatrix.matrix[2][2] = cos(rotation * (pi / 180));
+        rotationMatrix.matrix[0][0] = cosValue;
+        rotationMatrix.matrix[0][2] = sinValue;
+        rotationMatrix.matrix[2][0] = -sinValue;
+        rotationMatrix.matrix[2][2] = cosValue;
         std::cout << "Rotation matrix y:\n";
         rotationMatrix.printMatrix();
     }
     else
     {
-        rotationMatrix.matrix[0][0] = cos(rotation * (pi / 180));
-        rotationMatrix.matrix[0][1] = -sin(rotation * (pi / 180));
-        rotationMatrix.matrix[1][0] = sin(rotation * (pi / 180));
-        rotationMatrix.matrix[1][1] = cos(rotation * (pi / 180));
+        rotationMatrix.matrix[0][0] = cosValue;
+        rotationMatrix.matrix[0][1] = -sinValue;
+        rotationMatrix.matrix[1][0] = sinValue;
+        rotationMatrix.matrix[1][1] = cosValue;
         std::cout << "Rotation matrix z:\n";
         rotationMatrix.printMatrix();
     }
@@ -144,15 +151,14 @@ Matrix4x4 Matrix4x4::rotate(double rotation,  const Vector3d &dir)
 Matrix4x4 Matrix4x4::translate(float x, float y, float z)
 {
     Matrix4x4 translateMatrix;
+
     translateMatrix.setToIdentity();
-    translateMatrix.matrix[0][3] = x;
-    translateMatrix.matrix[1][3] = y;
-    translateMatrix.matrix[2][3] = z;
+    translateMatrix.matrix[3][0] = x;
+    translateMatrix.matrix[3][1] = y;
+    translateMatrix.matrix[3][2] = z;
 
     return translateMatrix;
 }
-
-
 
 
 
