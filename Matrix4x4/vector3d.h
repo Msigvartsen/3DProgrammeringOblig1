@@ -2,6 +2,8 @@
 #define VECTOR3D_H
 #include <iostream>
 #include <cmath>
+#include <vector>
+
 
 class Vector3d
 {
@@ -21,10 +23,11 @@ public:
     Vector3d operator *(float c) const;
     void printVector();
     void writeToFile(std::string filename);
+    void readFromFile(std::string filename);
     float getX() const {return x;}
     float getY() const {return y;}
     float getZ() const {return z;}
-
+    void printVectorArray();
     //Get directional vectors
     static Vector3d getXVector() {return Vector3d(1,0,0);}
     static Vector3d getYVector() {return Vector3d(0,1,0);}
@@ -32,6 +35,8 @@ public:
 
 private:
     float x, y, z;
+    std::vector<std::string> mVectorString;
+    std::vector<Vector3d> mVectorArray;
 };
 
 #endif // VECTOR3D_H
