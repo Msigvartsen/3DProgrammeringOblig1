@@ -13,11 +13,14 @@ public:
     Vector3d operator- (const Vector3d& v) const;
     float operator* (const Vector3d& v) const;
     Vector3d operator^ (const Vector3d& v) const;
+    friend std::ostream& operator<< (std::ostream& out, const Vector3d& v);
+    friend std::istream& operator>> (std::istream &in, Vector3d& v);
+    float operator[] (int index) const;
     float length() const;
     void normalize();
     Vector3d operator *(float c) const;
     void printVector();
-
+    void writeToFile(std::string filename);
     float getX() const {return x;}
     float getY() const {return y;}
     float getZ() const {return z;}

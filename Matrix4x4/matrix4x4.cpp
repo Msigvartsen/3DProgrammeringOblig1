@@ -1,6 +1,8 @@
 #include "matrix4x4.h"
 #include <iostream>
 #include <limits>
+#include <cmath>
+
 Matrix4x4::Matrix4x4()
 {
     for(unsigned int i{0}; i < matrix.size(); i++)
@@ -69,7 +71,7 @@ Vector4d Matrix4x4::operator*(const Vector4d &v) const
             vec.setW(tempSum);
             break;
         default:
-            std::cout << "Error: Switch i -> Matrix4x4 operator* overload\n";
+            std::cout << "Error: Switch(i) :: Matrix4x4 operator* overload\n";
             break;
         }
     }
@@ -103,7 +105,7 @@ Matrix4x4 Matrix4x4::scale(float x, float y, float z)
     return tempMatrix;
 }
 
-Matrix4x4 Matrix4x4::rotate(double rotation,  const Vector3d &dir)
+Matrix4x4 Matrix4x4::rotate(float rotation,  const Vector3d &dir)
 {
     double pi = 3.14159265;
     Matrix4x4 rotationMatrix;
@@ -116,6 +118,7 @@ Matrix4x4 Matrix4x4::rotate(double rotation,  const Vector3d &dir)
     {
         cosValue = 0;
     }
+
     if(dir.getX() == 1)
     {
         rotationMatrix.matrix[1][1] = cosValue;
@@ -153,12 +156,45 @@ Matrix4x4 Matrix4x4::translate(float x, float y, float z)
     Matrix4x4 translateMatrix;
 
     translateMatrix.setToIdentity();
+
+    //Translate - Fra mattebok
+//    translateMatrix.matrix[0][3] = x;
+//    translateMatrix.matrix[1][3] = y;
+//    translateMatrix.matrix[2][3] = z;
+
+    //Translate for openGL
     translateMatrix.matrix[3][0] = x;
     translateMatrix.matrix[3][1] = y;
     translateMatrix.matrix[3][2] = z;
 
     return translateMatrix;
 }
+
+
+
+Matrix4x4 Matrix4x4::perspective(float fov, float aspect, float near, float far)
+{
+    Matrix4x4 tempMatrix;
+    double pi = 3.14159265;
+    tempMatrix.matrix[0][0] = (1/aspect * (tan(fov/2))) * pi/180;
+    tempMatrix.matrix[1][1] = (1/(tan(fov/2))) * pi/180;
+    tempMatrix.matrix[2][2] = (-near-far) / (near - far);
+    tempMatrix.matrix[2][3] = (2*far*near) / (near-far);
+    tempMatrix.matrix[3][2] = 1;
+    return tempMatrix;
+}
+
+Matrix4x4 Matrix4x4::perspectiveProj(float top,float right, float near, float far)
+{
+    Matrix4x4 tempMatrix;
+    tempMatrix.matrix[0][0] = near/right;
+    tempMatrix.matrix[1][1] = near/top;
+    tempMatrix.matrix[2][2] = -(far+near) / (far - near);
+    tempMatrix.matrix[2][3] = (-2*far*near) / (far - near);
+    tempMatrix.matrix[3][2] = -1;
+    return tempMatrix;
+}
+
 
 
 
