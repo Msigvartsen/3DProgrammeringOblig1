@@ -23,8 +23,11 @@ public:
     Matrix4x4 transpose(); //Transpose Matrix -- used with openGL
     Matrix4x4 gaussElimination();
     Matrix4x4 inverse();
+    void setMatrix();
+
 private:
     std::array<std::array<float, 4>, 4> matrix;
+    float findRow(int index);
 };
 
 #endif // MATRIX4X4_H

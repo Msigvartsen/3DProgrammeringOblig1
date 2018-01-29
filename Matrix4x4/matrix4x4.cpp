@@ -154,14 +154,14 @@ Matrix4x4 Matrix4x4::translate(float x, float y, float z)
     Matrix4x4 translateMatrix;
     translateMatrix.setToIdentity();
     //Translate - Fra mattebok
-        translateMatrix.matrix[0][3] = x;
-        translateMatrix.matrix[1][3] = y;
-        translateMatrix.matrix[2][3] = z;
+    translateMatrix.matrix[0][3] = x;
+    translateMatrix.matrix[1][3] = y;
+    translateMatrix.matrix[2][3] = z;
 
     //Translate for openGL
-//    translateMatrix.matrix[3][0] = x;
-//    translateMatrix.matrix[3][1] = y;
-//    translateMatrix.matrix[3][2] = z;
+    //    translateMatrix.matrix[3][0] = x;
+    //    translateMatrix.matrix[3][1] = y;
+    //    translateMatrix.matrix[3][2] = z;
 
     return translateMatrix;
 }
@@ -194,9 +194,9 @@ Matrix4x4 Matrix4x4::perspectiveProj(float top,float right, float near, float fa
 
 Matrix4x4 Matrix4x4::transpose()
 {
-    for(int i{0}; i < matrix.size(); i++)
+    for(unsigned int i{0}; i < matrix.size(); i++)
     {
-        for(int j{i+1}; j < matrix.size(); j++)
+        for(unsigned int j{i+1}; j < matrix.size(); j++)
         {
             std::swap(matrix[i][j], matrix[j][i]);
         }
@@ -212,7 +212,144 @@ Matrix4x4 Matrix4x4::gaussElimination()
 
 Matrix4x4 Matrix4x4::inverse()
 {
+    Matrix4x4 inverseMatrix;
+    inverseMatrix.setToIdentity();
 
+    bool done{false};
+    bool help{false};
+    while(!done)
+    {
+        //Setter matrise til trappeform
+        for(unsigned int i{0}; i < matrix.size(); i++)
+        {
+            if(matrix[i][i] != 1)
+            {
+                double factor = matrix[i][i];
+                for(unsigned int j{0}; j < matrix.size(); j++)
+                {
+                    if(factor != 0)
+                    {
+                        matrix[i][j] /= factor;
+                        inverseMatrix.matrix[i][i] /= factor;
+                    }
+                    else
+                    {
+                        matrix[i][j] += findRow(i);
+                        help = true;
+                    }
+                }
+                if(help)
+                {
+                    i--;
+                    help = false;
+                }
+            }
+            printMatrix();
+            bool test{false};
+            int row{0};
+            int col{0};
+            while(!test)
+            {
+                double tmp = matrix[row][col];
+                for(unsigned int j{0}; j < matrix.size(); j++)
+                {
+                    matrix[row][col] -= tmp*matrix[row+1][j];
+                    inverseMatrix.matrix[row][j] -= tmp*inverseMatrix.matrix[row+1][j];
+                    if(matrix[row][row] == 1 && matrix[row][col] == 0)
+                    {
+                        row++;
+                    }
+                }
+                if(row > 3)
+                {
+                    test = true;
+                }
+            }
+            //            for(unsigned int i{0}; i < matrix.size()-1; i++)
+            //            {
+            //                double tmp = matrix[i][i+1];
+            //                for(unsigned int j{0}; j < matrix.size(); j++)
+            //                {
+
+            //                    matrix[i][j] -= tmp*matrix[i+1][j+1];
+            //                    inverseMatrix.matrix[i][j] -= tmp*inverseMatrix.matrix[i+1][j+1];
+
+            //                }
+            //            }
+            done = true;
+        }
+    }
+
+    return inverseMatrix;
+}
+
+void Matrix4x4::setMatrix()
+{
+    std::cout << "insert matrix:\n";
+    for(unsigned int i{0}; i < matrix.size(); i++)
+    {
+        for(unsigned int j{0}; j < matrix.size(); j++)
+        {
+            std::cin >> matrix[i][j];
+        }
+    }
+}
+
+Matrix4x4 Matrix4x4::test()
+{
+
+        Matrix4x4 mat;
+        for (unsigned column = 0; column < 4; ++column) {
+            // Swap row in case our pivot point is not working
+            if (matrix[column][column] == 0) {
+                unsigned big = column;
+                for (unsigned row = 0; row < 4; ++row)
+                    if (fabs(matrix[row][column]) > fabs(matrix[big][column])) big = row;
+                // Print this is a singular matrix, return identity ?
+                if (big == column) fprintf(stderr, "Singular matrix\n");
+                // Swap rows
+                else for (unsigned j = 0; j < 4; ++j) {
+                    std::swap(matrix[column][j], matrix[big][j]);
+                    std::swap(mat.matrix[column][j], mat.matrix[big][j]);
+                }
+            }
+            // Set each row in the column to 0
+            for (unsigned row = 0; row < 4; ++row) {
+                if (row != column) {
+                    float coeff = matrix[row][column] / matrix[column][column];
+                    if (coeff != 0) {
+                        for (unsigned j = 0; j < 4; ++j) {
+                            matrix[row][j] -= coeff * matrix[column][j];
+                            mat.matrix[row][j] -= coeff * mat.matrix[column][j];
+                        }
+                        // Set the element to 0 for safety
+                        matrix[row][column] = 0;
+                    }
+                }
+            }
+        }
+        // Set each element of the diagonal to 1
+        for (unsigned row = 0; row < 4; ++row) {
+            for (unsigned column = 0; column < 4; ++column) {
+                mat.matrix[row][column] /= matrix[row][row];
+            }
+        }
+
+        return mat;
+    }
+
+
+
+float Matrix4x4::findRow(int index)
+{
+    for(unsigned int i{0}; i < matrix.size(); i++)
+    {
+        if(matrix[i][index] != 0)
+        {
+            return matrix[i][index];
+        }
+    }
+    return 0;
 }
 
 
