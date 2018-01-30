@@ -28,6 +28,7 @@ public:
     float getY() const {return y;}
     float getZ() const {return z;}
     void printVectorArray();
+
     //Get directional vectors
     static Vector3d getXVector() {return Vector3d(1,0,0);}
     static Vector3d getYVector() {return Vector3d(0,1,0);}

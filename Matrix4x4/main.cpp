@@ -9,22 +9,32 @@ int main() {
     Vector3d x(0,0,0);
     Vector4d b(a,1);
 
-    Matrix4x4 matrix;
-    //    matrix = matrix.rotate(90,Vector3d::getXVector());
-    //    matrix.printMatrix();
-    // matrix.setMatrix();
-    matrix.printMatrix();
-    Matrix4x4 inv;
-    //    inv = matrix.inverse();
-    //    std::cout << "\n\n";
-    //    matrix.printMatrix();
 
-    //    std::cout << "\n\n";
-    //    inv.printMatrix();
-    matrix.setMatrix();
+
+
+    //Legger inn 5 vectors i .txt fil
+    for(int i{0}; i < 5; i++)
+    {
+        a.writeToFile("vectors");
+    }
+
+    //Leser vektor fra fil, putter inn i et array
+    a.readFromFile("vectors");
+    a.printVectorArray();
+
+    std::cout << "\n\n";
+    Matrix4x4 matrix;
+    matrix.setToIdentity();
+    std::cout << "\n\n";
+
+    matrix = matrix.rotate(90, Vector3d::getXVector());
     matrix.printMatrix();
-    inv = matrix.test();
-    inv.printMatrix();
+//    Matrix4x4 inv;
+//    matrix.setMatrix();
+//    inv = matrix.inverse();
+//    matrix.printMatrix();
+//    std::cout << "Inverse: \n";
+//    inv.printMatrix();
 
     return 0;
 }
